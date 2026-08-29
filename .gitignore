@@ -1,3 +1,7 @@
 .env
 __pycache__/
 *.pyc
+
+node_modules/
+dist/
+server/data/campaign.json

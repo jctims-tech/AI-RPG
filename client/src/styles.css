@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+  --ink: #15181f;
+  --panel: #1f2531;
+  --text: #f5f1e7;
+  --muted: #b9c0cc;
+  --ember: #e27b45;
+  --ember-dim: #7a4126;
+  --sage: #8cc2a8;
+  --sage-dim: #3f5e4f;
+  --gold: #e3be5e;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.06);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', system-ui, sans-serif; }
+
+.rpg-outer { height: 100vh; height: 100dvh; width: 100%; display: flex; justify-content: center; background: #000; }
+.rpg-shell { position: relative; width: 100%; max-width: 440px; height: 100%; background: var(--ink); color: var(--text); display: flex; flex-direction: column; overflow: hidden; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: max(12px, env(safe-area-inset-top)) 14px 10px; border-bottom: 1px solid var(--border-soft); }
+.eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 0 0 2px; }
+.title { font-size: 15px; font-weight: 600; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hpbadge { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px 3px 3px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); flex-shrink: 0; }
+.renbadge { width: 22px; height: 22px; border-radius: 999px; background: #3a3226; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--gold); }
+
+.presentbar { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-bottom: 1px solid var(--border-soft); flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--muted); }
+.conditiontag { font-size: 11px; color: var(--ember); background: rgba(226, 123, 69, 0.12); border: 1px solid rgba(226, 123, 69, 0.35); padding: 3px 9px; border-radius: 999px; }
+
+.feed { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; }
+.gm-line { font-family: 'Fraunces', Georgia, serif; font-size: 16.5px; line-height: 1.65; margin: 0; animation: fadeIn 0.3s ease-out; }
+.player-row { display: flex; justify-content: flex-end; animation: fadeIn 0.3s ease-out; }
+.player-bubble { max-width: 85%; background: rgba(226, 123, 69, 0.14); border: 1px solid rgba(226, 123, 69, 0.32); border-radius: 16px 16px 4px 16px; padding: 8px 13px; }
+.player-tag { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--ember); margin: 0 0 2px; letter-spacing: 0.06em; }
+.player-text { font-size: 14.5px; margin: 0; }
+.note-row { display: flex; justify-content: center; }
+.note-pill { font-size: 12px; font-style: italic; color: var(--muted); background: rgba(255, 255, 255, 0.05); padding: 5px 12px; border-radius: 999px; }
+.note-pill.thinking { animation: pulse 1.4s ease-in-out infinite; }
+
+.rollcard { border: 1px solid var(--border); background: var(--panel); border-radius: 16px; padding: 14px; animation: fadeIn 0.3s ease-out; }
+.rollcard-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-family: 'IBM Plex Mono', monospace; }
+.rollcard-kicker { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.rollcard-target { font-size: 11.5px; color: var(--muted); }
+.rollcard-title { font-size: 16px; font-weight: 600; margin: 0 0 10px; }
+.dieblock { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 6px 0 2px; }
+.die-btn { border: none; background: transparent; width: 84px; height: 84px; position: relative; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; }
+.die-btn:disabled { cursor: default; }
+.die-shape { width: 84px; height: 84px; clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%); position: relative; }
+.rollcard.resolved .die-shape { width: 56px; height: 56px; }
+.die-idle { background: linear-gradient(135deg, #454f63, #262d3a); border: 1px solid rgba(255, 255, 255, 0.18); }
+.die-success { background: linear-gradient(135deg, var(--sage), var(--sage-dim)); }
+.die-fail { background: linear-gradient(135deg, var(--ember), var(--ember-dim)); }
+.die-value { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 26px; color: #fff; }
+.die-tumble { animation: dieTumble 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+.rollcaption { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--muted); margin: 0; text-align: center; }
+.rollresult { font-family: 'IBM Plex Mono', monospace; font-size: 13px; text-align: center; margin: 0; }
+.rollresult .pass { color: var(--sage); font-weight: 600; }
+.rollresult .fail { color: var(--ember); font-weight: 600; }
+
+.errorbar { margin: 0; padding: 8px 14px; background: rgba(226, 123, 69, 0.16); color: var(--ember); font-size: 12.5px; flex-shrink: 0; }
+
+.inputbar { flex-shrink: 0; border-top: 1px solid var(--border-soft); padding: 8px 10px max(10px, env(safe-area-inset-bottom)); display: flex; align-items: flex-end; gap: 8px; }
+.textinput { flex: 1; resize: none; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 18px; padding: 10px 14px; font-size: 15px; color: var(--text); font-family: 'Inter', sans-serif; max-height: 96px; }
+.textinput:focus { outline: none; border-color: rgba(226, 123, 69, 0.55); }
+.textinput:disabled { opacity: 0.45; }
+.sendbtn { flex-shrink: 0; border-radius: 18px; padding: 0 16px; background: var(--ember); border: none; color: #fff; font-weight: 600; cursor: pointer; }
+.sendbtn:disabled { opacity: 0.3; cursor: default; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+@keyframes dieTumble { 0% { transform: rotate(0deg) scale(1); } 30% { transform: rotate(160deg) scale(1.1); } 60% { transform: rotate(300deg) scale(0.94); } 100% { transform: rotate(360deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .gm-line, .player-row, .note-row, .rollcard { animation: none !important; } .die-tumble { animation: none !important; } }
