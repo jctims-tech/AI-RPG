@@ -9,13 +9,42 @@ stop and wait when a player-facing roll is required.
 ## `game.py` -- technical spike (Stage 0)
 
 A single-file, terminal-only proof of concept: one hardcoded scene, one d20
-roll resolved by plain Python, the AI narrating before and after. Superseded
-by the vertical slice below, kept here as a reference.
+roll resolved by plain Python, the AI narrating before and after. Kept here
+as a reference; not modified by the two variants below.
 
 ```bash
 export OPENROUTER_API_KEY=your-key-here
 python3 game.py
 ```
+
+## `game_web.py` -- same spike, single-file Flask web UI
+
+The same core loop as `game.py` (AI narrates, Python rolls the die
+authoritatively, AI narrates the given result) as one local web page instead
+of a terminal script. One scene, one NPC (Voss, the patrolling guard), the
+same arrow count (5, untouched) as a placeholder for state that isn't
+exercised in this scene. In-memory only -- no persistence across restarts;
+see the vertical slice below for that.
+
+The roll appears as a card inside the scrolling feed with a "Roll" button;
+clicking it calls the backend (Python rolls, never the AI) and the result is
+shown permanently in that same card. The story then continues automatically
+underneath it.
+
+### Run it
+
+Requires Python 3 and Flask (one-time install).
+
+```bash
+pip install flask
+export OPENROUTER_API_KEY=your-key-here
+python3 game_web.py
+```
+
+Open **http://127.0.0.1:5000** in your browser.
+
+To try a different model, edit the `MODEL` constant at the top of
+`game_web.py`.
 
 ## `server/` + `client/` -- persistent gameplay vertical slice (Stage 1, Ticket 001)
 
