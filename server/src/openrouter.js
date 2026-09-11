@@ -1,6 +1,6 @@
 // Thin OpenRouter chat-completions client. The model is a single constant
 // so it's easy to swap.
-const MODEL = "anthropic/claude-sonnet-4-6";
+const MODEL = "anthropic/claude-sonnet-4.6";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 export async function callGM({ systemPrompt, messages, tools }) {

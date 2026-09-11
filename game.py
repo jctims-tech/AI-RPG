@@ -16,7 +16,7 @@ import urllib.error
 import urllib.request
 
 # Change this one constant to try a different model.
-MODEL = "anthropic/claude-sonnet-4-6"
+MODEL = "anthropic/claude-sonnet-4.6"
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 

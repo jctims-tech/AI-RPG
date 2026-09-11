@@ -25,7 +25,7 @@ import urllib.request
 from flask import Flask, jsonify, render_template_string, request
 
 # Change this one constant to try a different model.
-MODEL = "anthropic/claude-sonnet-4-6"
+MODEL = "anthropic/claude-sonnet-4.6"
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
