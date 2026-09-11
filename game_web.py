@@ -109,9 +109,28 @@ def next_id():
     return f"e{_next_id[0]}"
 
 
+def fresh_player_state():
+    """Placeholder shape for authoritative character state. Only inventory
+    (arrows) is actually touched by this scene -- hp, resources, and
+    conditions exist so the structure is there to grow into, per the ticket."""
+    return {
+        "hp": 12,
+        "max_hp": 12,
+        "inventory": {"arrows": 5, "dagger": 1},
+        "resources": {"notable_ability_uses": 3, "notable_ability_max": 3},
+        "conditions": [],
+    }
+
+
+def print_player_state():
+    print("\n=== player_state ===")
+    print(json.dumps(game_state["player_state"], indent=2))
+    print("=====================\n")
+
+
 def fresh_state():
     return {
-        "arrows": 5,
+        "player_state": fresh_player_state(),
         "check_used": False,
         "pending_check": None,
         "history": [
@@ -256,6 +275,7 @@ def post_action():
         else:
             game_state["history"].append({"id": next_id(), "type": "gm", "text": result["text"]})
 
+        print_player_state()
         return jsonify(game_state)
 
 
@@ -289,9 +309,11 @@ def post_roll():
             # The roll itself already happened and is already recorded above --
             # only the narration call failed, so report that distinctly but
             # still return the (already-updated) authoritative state.
+            print_player_state()
             return jsonify({"error": str(err), "state": game_state}), 502
 
         game_state["history"].append({"id": next_id(), "type": "gm", "text": text})
+        print_player_state()
         return jsonify(game_state)
 
 
@@ -493,7 +515,7 @@ function showError(msg) {
 
 function render() {
   feedEl.innerHTML = '';
-  arrowsEl.textContent = 'Arrows: ' + state.arrows;
+  arrowsEl.textContent = 'Arrows: ' + state.player_state.inventory.arrows;
 
   for (const entry of state.history) {
     if (entry.type === 'gm') {
